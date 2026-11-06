@@ -3,6 +3,7 @@ import { createClient, defineQuery } from "next-sanity";
 import { cache } from "react";
 import { fallbackContent } from "@/content/fallback";
 import type { Content, Profile, Project } from "@/content/types";
+import type { DesignTokens } from "./designTokens";
 import { apiVersion, dataset, projectId } from "./env";
 
 /** Segundos até o site ir buscar conteúdo novo depois de publicares na Sanity. */
@@ -57,6 +58,15 @@ async function fetchFromSanity(): Promise<Content> {
       : fallbackContent.projects,
   };
 }
+
+/** Valores do documento Design System, ou null enquanto não estiver publicado. */
+export const getDesignTokens = cache(() =>
+  createClient({ projectId, dataset, apiVersion, useCdn: true }).fetch<Partial<DesignTokens> | null>(
+    defineQuery(`*[_id == "designSystem"][0]`),
+    {},
+    { next: { revalidate: REVALIDATE_SECONDS } },
+  ),
+);
 
 /** Conteúdo do site, vindo da Sanity. O que ainda estiver vazio usa o exemplo do design. */
 export const getContent = cache(fetchFromSanity);

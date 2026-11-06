@@ -33,6 +33,12 @@ O `localhost:3000` já está autorizado. Para usares a linha de comandos da Sani
 Carrega em **Publish** para a alteração ir para o site. Enquanto a Sanity estiver vazia,
 o site mostra o conteúdo de exemplo do Figma (`src/content/fallback.ts`).
 
+## Design System
+
+No Studio, o documento **Design System** controla as cores, os tamanhos de texto e os
+espaçamentos do site. Edita, carrega em **Publish** e o site atualiza em cerca de um minuto.
+Cada campo indica o valor original do Figma. Os valores estão ligados em `src/sanity/designTokens.ts`.
+
 ## Comandos
 
 ```bash

@@ -3,7 +3,7 @@ import { ExternalLink } from "./ExternalLink";
 
 export function ProfilePanel({ profile }: { profile: Profile }) {
   return (
-    <div className="flex flex-col gap-16 xl:sticky xl:top-0 xl:col-span-5 xl:row-start-1 xl:h-dvh xl:justify-between xl:gap-10 xl:self-start xl:overflow-y-auto xl:py-10 xl:[scrollbar-width:none]">
+    <div className="flex flex-col gap-(--section-gap) xl:sticky xl:top-0 xl:col-span-5 xl:row-start-1 xl:h-dvh xl:justify-between xl:gap-10 xl:self-start xl:overflow-y-auto xl:py-(--margin-desktop) xl:[scrollbar-width:none]">
       <header className="flex flex-col gap-4 xl:w-[448px] xl:max-w-full">
         <div className="text-title flex items-center justify-between font-bold">
           <h1>{profile.name}</h1>
@@ -15,7 +15,7 @@ export function ProfilePanel({ profile }: { profile: Profile }) {
         <p>{profile.bio}</p>
       </header>
 
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-(--block-gap)">
         {profile.education.length > 0 && (
           <section className="flex flex-col gap-4">
             <h2 className="font-bold">Education</h2>

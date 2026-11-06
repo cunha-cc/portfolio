@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { getContent } from "@/sanity/content";
+import { getContent, getDesignTokens } from "@/sanity/content";
+import { tokensToCss } from "@/sanity/designTokens";
 import "./globals.css";
 
 const sans = localFont({
@@ -20,9 +21,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const tokens = await getDesignTokens();
+
   return (
     <html lang="en" className={sans.variable}>
+      <head>
+        <style dangerouslySetInnerHTML={{ __html: tokensToCss(tokens) }} />
+      </head>
       <body>{children}</body>
     </html>
   );

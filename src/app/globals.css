@@ -15,6 +15,7 @@
   --color-muted: #646464;
   --color-placeholder: #cfcfcf;
   --color-surface: #fdfdfd;
+  --color-page-desktop: #ffffff;
   --color-control: rgb(225 225 225 / 0.65);
 
   --font-sans: var(--font-42dot), "42dot Sans Arrows", ui-sans-serif, system-ui, sans-serif;
@@ -32,6 +33,6 @@
 
 @layer base {
   body {
-    @apply bg-surface text-body text-ink font-sans antialiased xl:bg-white;
+    @apply bg-surface text-body text-ink font-sans antialiased xl:bg-page-desktop;
   }
 }

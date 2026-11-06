@@ -1,4 +1,5 @@
+import { designSystem } from "./designSystem";
 import { profile } from "./profile";
 import { project } from "./project";
 
-export const schemaTypes = [profile, project];
+export const schemaTypes = [profile, project, designSystem];

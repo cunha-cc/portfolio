@@ -5,8 +5,8 @@ import { structureTool } from "sanity/structure";
 import { dataset, projectId } from "./src/sanity/env";
 import { schemaTypes } from "./src/sanity/schemaTypes";
 
-// O Perfil é um documento único: existe só um, por isso não se cria nem apaga.
-const PROFILE_ID = "profile";
+// Documentos únicos: existe só um de cada, por isso não se criam nem apagam.
+const SINGLETONS = ["profile", "designSystem"];
 
 export default defineConfig({
   name: "default",
@@ -17,11 +17,11 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
     templates: (templates) =>
-      templates.filter((template) => template.schemaType !== "profile"),
+      templates.filter((template) => !SINGLETONS.includes(template.schemaType)),
   },
   document: {
     actions: (actions, { schemaType }) =>
-      schemaType === "profile"
+      SINGLETONS.includes(schemaType)
         ? actions.filter(
             ({ action }) =>
               action === "publish" ||
@@ -38,14 +38,24 @@ export default defineConfig({
           .items([
             S.listItem()
               .title("Perfil")
-              .id(PROFILE_ID)
+              .id("profile")
               .child(
                 S.document()
                   .schemaType("profile")
-                  .documentId(PROFILE_ID)
+                  .documentId("profile")
                   .title("Perfil"),
               ),
             S.documentTypeListItem("project").title("Projetos"),
+            S.divider(),
+            S.listItem()
+              .title("Design System")
+              .id("designSystem")
+              .child(
+                S.document()
+                  .schemaType("designSystem")
+                  .documentId("designSystem")
+                  .title("Design System"),
+              ),
           ]),
     }),
   ],
