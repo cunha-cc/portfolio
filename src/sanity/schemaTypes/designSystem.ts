@@ -51,7 +51,7 @@ export const designSystem = defineType({
 
     numberField("fontTitle", "Tamanho dos títulos", "type", 12, 48, "px"),
     numberField("fontBody", "Tamanho do texto", "type", 12, 32, "px"),
-    numberField("fontCaption", "Tamanho do texto pequeno", "type", 10, 20, "px"),
+    numberField("fontSmall", "Tamanho do texto pequeno (datas e tags)", "type", 10, 24, "px"),
     numberField("lineHeightTitle", "Altura de linha dos títulos", "type", 1, 2, "múltiplos do tamanho"),
     numberField("lineHeightBody", "Altura de linha do texto", "type", 1, 2, "múltiplos do tamanho"),
 

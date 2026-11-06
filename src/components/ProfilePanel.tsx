@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Profile } from "@/content/types";
 import { ExternalLink } from "./ExternalLink";
 
@@ -11,8 +12,23 @@ export function ProfilePanel({ profile }: { profile: Profile }) {
             Email
           </a>
         </div>
-        {profile.note && <p className="text-muted">{profile.note}</p>}
-        <p>{profile.bio}</p>
+        {profile.note && (
+          <p className="text-muted md:max-w-[448px]">
+            {/* Um Enter no Studio cria uma quebra de linha só em tablet. */}
+            {profile.note.split("\n").map((line, index) => (
+              <Fragment key={index}>
+                {index > 0 && (
+                  <>
+                    {" "}
+                    <br className="hidden md:inline xl:hidden" />
+                  </>
+                )}
+                {line}
+              </Fragment>
+            ))}
+          </p>
+        )}
+        <p className="md:max-w-[448px]">{profile.bio}</p>
       </header>
 
       <div className="flex flex-col gap-(--block-gap)">
@@ -41,7 +57,7 @@ export function ProfilePanel({ profile }: { profile: Profile }) {
                   className="flex flex-col gap-4 xl:gap-2"
                 >
                   <div className="flex flex-col gap-2 whitespace-nowrap xl:grid xl:grid-cols-[227px_1fr] xl:items-center xl:gap-0">
-                    <span className="text-caption text-muted uppercase">{item.period}</span>
+                    <span className="text-small text-muted uppercase">{item.period}</span>
                     <span>
                       <ExternalLink href={item.url}>{item.role}</ExternalLink>
                     </span>
@@ -53,7 +69,7 @@ export function ProfilePanel({ profile }: { profile: Profile }) {
           </section>
         )}
 
-        <div className="flex items-start gap-[94px] whitespace-nowrap xl:gap-[142px]">
+        <div className="flex items-start gap-[94px] whitespace-nowrap md:gap-[142px]">
           <SimpleList title="Software" items={profile.software} />
           <SimpleList title="Skills" items={profile.skills} />
         </div>

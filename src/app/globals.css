@@ -27,8 +27,6 @@
   --text-body--line-height: 1.2;
   --text-small: 14px;
   --text-small--line-height: 1.2;
-  --text-caption: 12px;
-  --text-caption--line-height: 1.2;
 }
 
 @layer base {

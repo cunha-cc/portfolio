@@ -18,7 +18,7 @@ export function ProjectCard({ project, priority = false }: Props) {
             <ExternalLink href={project.url}>{project.title}</ExternalLink>
           </h3>
           {project.tags.length > 0 && (
-            <p className="text-caption text-muted whitespace-nowrap uppercase">
+            <p className="text-small text-muted whitespace-nowrap uppercase">
               {project.tags.join(" • ")}
             </p>
           )}

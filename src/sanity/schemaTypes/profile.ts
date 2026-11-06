@@ -21,7 +21,8 @@ export const profile = defineType({
     defineField({
       name: "note",
       title: "Nota (opcional)",
-      description: "Texto em cinzento entre o nome e a descrição “Sobre mim”.",
+      description:
+        "Texto em cinzento entre o nome e a descrição “Sobre mim”. Um Enter cria uma quebra de linha só em tablet.",
       type: "text",
       rows: 2,
     }),

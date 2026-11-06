@@ -6,7 +6,7 @@ export default async function HomePage() {
   const { profile, projects } = await getContent();
 
   return (
-    <main className="grid grid-cols-1 gap-y-(--section-gap) px-(--margin-mobile) pt-(--margin-mobile) pb-10 xl:grid-cols-12 xl:gap-x-(--gutter) xl:px-(--margin-desktop) xl:py-0">
+    <main className="mx-auto grid max-w-[1440px] grid-cols-1 gap-y-(--section-gap) px-(--margin-mobile) pt-(--margin-mobile) pb-10 xl:grid-cols-12 xl:gap-x-(--gutter) xl:px-(--margin-desktop) xl:py-0">
       <ProfilePanel profile={profile} />
 
       <section className="flex flex-col gap-4 xl:contents">
