@@ -6,7 +6,7 @@ export default async function HomePage() {
   const { profile, projects } = await getContent();
 
   return (
-    <main className="grid grid-cols-1 gap-y-14 px-5 pt-5 pb-10 xl:grid-cols-12 xl:gap-x-6 xl:px-10 xl:py-0">
+    <main className="grid grid-cols-1 gap-y-16 px-5 pt-5 pb-10 xl:grid-cols-12 xl:gap-x-6 xl:px-10 xl:py-0">
       <ProfilePanel profile={profile} />
 
       <section className="flex flex-col gap-4 xl:contents">

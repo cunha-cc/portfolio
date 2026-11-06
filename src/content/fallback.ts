@@ -11,6 +11,7 @@ const placeholderProject = (id: string): Project => ({
   tags: ["Brand", "Web"],
   description: LOREM_SHORT,
   studio: "Onda Studio",
+  studioUrl: "#",
   images: [
     { url: null, alt: "" },
     { url: null, alt: "" },
@@ -21,6 +22,7 @@ export const fallbackContent: Content = {
   profile: {
     name: "R. Cunha",
     email: "email@example.com",
+    note: "But you can call me “Ray”. In portuguese, it's pronounced \"hī,\" like \"hi”. So, you can say “Hi, Hi!”",
     bio: "Lorem ipsum dolor sit amet consectetur. Ipsum amet eu dignissim consectetur nunc nec tortor enim. Eget magna quam sed mauris. Nisl purus malesuada dictum enim tellus tincidunt et neque nullam. Mattis enim lorem sollicitudin ut. Tristique ipsum massa facilisi ut vestibulum vitae.",
     education: [
       {
@@ -33,6 +35,7 @@ export const fallbackContent: Content = {
       { period: "2021 - 2023", role: "Intership at ESTUDIO CRU", url: "#" },
       { period: "2021 - 2021", role: "Designer at FBAUP Design INC." },
     ],
+    software: ["Figma", "Claude", "Illustration", "After Effects", "Photoshop", "Indesign"],
     skills: ["Digital Design", "AI", "Branding", "Motion", "Illustration"],
   },
   projects: [placeholderProject("placeholder-1"), placeholderProject("placeholder-2")],

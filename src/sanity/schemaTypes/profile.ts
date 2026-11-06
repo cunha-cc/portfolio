@@ -19,6 +19,13 @@ export const profile = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "note",
+      title: "Nota (opcional)",
+      description: "Texto em cinzento entre o nome e a descrição “Sobre mim”.",
+      type: "text",
+      rows: 2,
+    }),
+    defineField({
       name: "bio",
       title: "Sobre mim",
       type: "text",
@@ -87,6 +94,13 @@ export const profile = defineType({
           preview: { select: { title: "role", subtitle: "period" } },
         }),
       ],
+    }),
+    defineField({
+      name: "software",
+      title: "Software",
+      description: "Arrasta para mudar a ordem.",
+      type: "array",
+      of: [defineArrayMember({ type: "string" })],
     }),
     defineField({
       name: "skills",

@@ -5,9 +5,11 @@ export type Experience = { period: string; role: string; url?: string | null };
 export type Profile = {
   name: string;
   email: string;
+  note?: string | null;
   bio: string;
   education: Education[];
   experience: Experience[];
+  software: string[];
   skills: string[];
 };
 
@@ -21,6 +23,7 @@ export type Project = {
   tags: string[];
   description: string;
   studio?: string | null;
+  studioUrl?: string | null;
   images: ProjectImage[];
 };
 

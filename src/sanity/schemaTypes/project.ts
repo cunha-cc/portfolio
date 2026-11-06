@@ -40,6 +40,12 @@ export const project = defineType({
       type: "string",
     }),
     defineField({
+      name: "studioUrl",
+      title: "Link do estúdio (opcional)",
+      description: "Se preencheres, o nome do estúdio fica sublinhado e clicável.",
+      type: "url",
+    }),
+    defineField({
       name: "images",
       title: "Imagens",
       description:

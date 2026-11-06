@@ -24,7 +24,23 @@ export function ProjectCard({ project, priority = false }: Props) {
           )}
         </div>
         <p>{project.description}</p>
-        {project.studio && <p className="text-muted">At {project.studio}</p>}
+        {project.studio && (
+          <p className="text-muted">
+            At{" "}
+            {project.studioUrl ? (
+              <a
+                href={project.studioUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-ink"
+              >
+                {project.studio}
+              </a>
+            ) : (
+              project.studio
+            )}
+          </p>
+        )}
       </div>
     </article>
   );

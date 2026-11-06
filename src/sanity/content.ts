@@ -11,9 +11,11 @@ const REVALIDATE_SECONDS = 60;
 const PROFILE_QUERY = defineQuery(`*[_id == "profile"][0]{
   name,
   email,
+  note,
   bio,
   "education": coalesce(education[]{degree, school}, []),
   "experience": coalesce(experience[]{period, role, url}, []),
+  "software": coalesce(software, []),
   "skills": coalesce(skills, [])
 }`);
 
@@ -24,6 +26,7 @@ const PROJECTS_QUERY = defineQuery(`*[_type == "project"] | order(order asc, _cr
   "tags": coalesce(tags, []),
   description,
   studio,
+  studioUrl,
   "images": coalesce(images[]{asset, crop, hotspot, alt}, [])
 }`);
 
