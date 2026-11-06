@@ -7,7 +7,6 @@ dist
 
 # variáveis de ambiente
 .env*
-!.env.example
 
 # sistema e ferramentas
 .DS_Store

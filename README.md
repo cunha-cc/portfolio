@@ -20,11 +20,8 @@ Quando publicas uma alteração, o site mostra-a em cerca de um minuto.
 O site usa o projeto **Cunha** (`wu5sd9cv`), dataset `production`. O dataset é público: qualquer
 pessoa pode ler o conteúdo publicado, mas só tu o podes editar.
 
-Num computador novo:
-
-1. Copia `.env.example` para `.env.local` e preenche `NEXT_PUBLIC_SANITY_PROJECT_ID=wu5sd9cv`.
-2. Corre `npm run dev` e abre http://localhost:3000/studio.
-
+O ID do projeto está em `src/sanity/env.ts`, por isso não é preciso configurar variáveis.
+Para trabalhar localmente, corre `npm install` e `npm run dev`, e abre http://localhost:3000/studio.
 O `localhost:3000` já está autorizado. Para usares a linha de comandos da Sanity, corre antes
 `npx sanity login`.
 
@@ -46,5 +43,10 @@ npm run typecheck  # verifica os tipos
 
 ## Publicar online
 
-Na Vercel, importa o repositório do GitHub e define as duas variáveis do `.env.example`.
-Depois autoriza o domínio final com `npx sanity cors add https://o-teu-dominio --credentials`.
+O site está na Netlify, ligado ao repositório do GitHub: cada envio para a `main` publica-o de novo.
+
+Se mudares de domínio, autoriza-o para o Studio funcionar:
+
+```bash
+npx sanity cors add https://o-teu-dominio --credentials
+```

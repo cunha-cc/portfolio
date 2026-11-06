@@ -3,7 +3,7 @@ import { createClient, defineQuery } from "next-sanity";
 import { cache } from "react";
 import { fallbackContent } from "@/content/fallback";
 import type { Content, Profile, Project } from "@/content/types";
-import { apiVersion, dataset, isSanityConfigured, projectId } from "./env";
+import { apiVersion, dataset, projectId } from "./env";
 
 /** Segundos até o site ir buscar conteúdo novo depois de publicares na Sanity. */
 const REVALIDATE_SECONDS = 60;
@@ -55,8 +55,5 @@ async function fetchFromSanity(): Promise<Content> {
   };
 }
 
-/** Conteúdo do site: vem da Sanity quando está ligada e, senão, do design. */
-export const getContent = cache(
-  async (): Promise<Content> =>
-    isSanityConfigured ? fetchFromSanity() : fallbackContent,
-);
+/** Conteúdo do site, vindo da Sanity. O que ainda estiver vazio usa o exemplo do design. */
+export const getContent = cache(fetchFromSanity);
