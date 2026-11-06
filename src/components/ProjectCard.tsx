@@ -8,7 +8,7 @@ export function ProjectCard({ project, priority = false }: Props) {
   return (
     <article className="flex flex-col gap-4">
       <ProjectGallery
-        images={project.images}
+        media={project.media}
         projectTitle={project.title}
         priority={priority}
       />

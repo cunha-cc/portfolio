@@ -12,9 +12,9 @@ const placeholderProject = (id: string): Project => ({
   description: LOREM_SHORT,
   studio: "Onda Studio",
   studioUrl: "#",
-  images: [
-    { url: null, alt: "" },
-    { url: null, alt: "" },
+  media: [
+    { kind: "image", url: null, alt: "" },
+    { kind: "image", url: null, alt: "" },
   ],
 });
 

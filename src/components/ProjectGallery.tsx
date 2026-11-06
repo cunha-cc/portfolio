@@ -1,16 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
-import type { ProjectImage } from "@/content/types";
+import { useEffect, useRef, useState } from "react";
+import type { ProjectMedia } from "@/content/types";
 
 type Props = {
-  images: ProjectImage[];
+  media: ProjectMedia[];
   projectTitle: string;
   priority?: boolean;
 };
 
-export function ProjectGallery({ images, projectTitle, priority = false }: Props) {
+export function ProjectGallery({ media, projectTitle, priority = false }: Props) {
   const scroller = useRef<HTMLDivElement>(null);
 
   function goTo(direction: -1 | 1) {
@@ -19,7 +19,7 @@ export function ProjectGallery({ images, projectTitle, priority = false }: Props
 
     const width = element.clientWidth;
     const current = Math.round(element.scrollLeft / width);
-    const next = (current + direction + images.length) % images.length;
+    const next = (current + direction + media.length) % media.length;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     element.scrollTo({ left: next * width, behavior: reduceMotion ? "auto" : "smooth" });
@@ -31,36 +31,83 @@ export function ProjectGallery({ images, projectTitle, priority = false }: Props
         ref={scroller}
         className="absolute inset-0 flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {images.map((image, index) => (
+        {media.map((item, index) => (
           <div key={index} className="relative h-full w-full shrink-0 snap-start">
-            {image.url && (
-              <Image
-                src={image.url}
-                alt={image.alt}
-                fill
-                sizes="(min-width: 1280px) 40vw, 100vw"
-                priority={priority && index === 0}
-                className="object-cover"
-              />
+            {item.kind === "video" ? (
+              <GalleryVideo url={item.url} poster={item.poster} alt={item.alt} />
+            ) : (
+              item.url && (
+                <Image
+                  src={item.url}
+                  alt={item.alt}
+                  fill
+                  sizes="(min-width: 1280px) 40vw, 100vw"
+                  priority={priority && index === 0}
+                  className="object-cover"
+                />
+              )
             )}
           </div>
         ))}
       </div>
 
-      {images.length > 1 && (
+      {media.length > 1 && (
         <div className="absolute right-4 bottom-4 flex items-center gap-1">
           <GalleryButton
-            label={`Imagem anterior de ${projectTitle}`}
+            label={`Item anterior de ${projectTitle}`}
             onClick={() => goTo(-1)}
             flipped
           />
           <GalleryButton
-            label={`Imagem seguinte de ${projectTitle}`}
+            label={`Item seguinte de ${projectTitle}`}
             onClick={() => goTo(1)}
           />
         </div>
       )}
     </div>
+  );
+}
+
+type GalleryVideoProps = { url: string; poster: string | null; alt: string };
+
+/** Reproduz sem som e só enquanto estiver visível; com movimento reduzido, mostra controlos. */
+function GalleryVideo({ url, poster, alt }: GalleryVideoProps) {
+  const video = useRef<HTMLVideoElement>(null);
+  const [showControls, setShowControls] = useState(false);
+
+  useEffect(() => {
+    const element = video.current;
+    if (!element) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setShowControls(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) element.play().catch(() => {});
+        else element.pause();
+      },
+      { threshold: 0.5 },
+    );
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={video}
+      src={url}
+      poster={poster ?? undefined}
+      aria-label={alt}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      controls={showControls}
+      className="absolute inset-0 size-full object-cover"
+    />
   );
 }
 

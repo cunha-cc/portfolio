@@ -28,11 +28,18 @@ const PROJECTS_QUERY = defineQuery(`*[_type == "project"] | order(order asc, _cr
   description,
   studio,
   studioUrl,
-  "images": coalesce(images[]{asset, crop, hotspot, alt}, [])
+  "media": coalesce(images[]{
+    _type,
+    alt,
+    _type == "video" => {"url": asset->url, poster},
+    _type != "video" => {asset, crop, hotspot}
+  }, [])
 }`);
 
-type SanityImage = SanityImageSource & { alt?: string };
-type SanityProject = Omit<Project, "images"> & { images: SanityImage[] };
+type SanityMedia =
+  | (SanityImageSource & { _type: "image"; alt?: string })
+  | { _type: "video"; alt?: string; url: string; poster?: SanityImageSource };
+type SanityProject = Omit<Project, "media"> & { media: SanityMedia[] };
 
 async function fetchFromSanity(): Promise<Content> {
   const client = createClient({ projectId, dataset, apiVersion, useCdn: true });
@@ -49,11 +56,20 @@ async function fetchFromSanity(): Promise<Content> {
     projects: projects.length
       ? projects.map((project) => ({
           ...project,
-          images: project.images.map((image) => ({
+          media: project.media.map((item) => {
             // O recorte 16:9 respeita o ponto de foco escolhido no Studio.
-            url: imageBuilder.image(image).width(1600).height(900).fit("crop").auto("format").url(),
-            alt: image.alt ?? "",
-          })),
+            const imageUrl = (source: SanityImageSource) =>
+              imageBuilder.image(source).width(1600).height(900).fit("crop").auto("format").url();
+
+            return item._type === "video"
+              ? {
+                  kind: "video" as const,
+                  url: item.url,
+                  alt: item.alt ?? "",
+                  poster: item.poster ? imageUrl(item.poster) : null,
+                }
+              : { kind: "image" as const, url: imageUrl(item), alt: item.alt ?? "" };
+          }),
         }))
       : fallbackContent.projects,
   };

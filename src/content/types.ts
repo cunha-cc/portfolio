@@ -14,7 +14,9 @@ export type Profile = {
 };
 
 /** `url` é null nos marcadores cinzentos, usados enquanto não houver imagens. */
-export type ProjectImage = { url: string | null; alt: string };
+export type ProjectMedia =
+  | { kind: "image"; url: string | null; alt: string }
+  | { kind: "video"; url: string; alt: string; poster: string | null };
 
 export type Project = {
   id: string;
@@ -24,7 +26,7 @@ export type Project = {
   description: string;
   studio?: string | null;
   studioUrl?: string | null;
-  images: ProjectImage[];
+  media: ProjectMedia[];
 };
 
 export type Content = { profile: Profile; projects: Project[] };

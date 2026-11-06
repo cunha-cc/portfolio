@@ -28,7 +28,7 @@ O `localhost:3000` já está autorizado. Para usares a linha de comandos da Sani
 ## Editar o conteúdo
 
 - **Perfil**: nome, email, bio, educação, experiência e competências. Existe só um.
-- **Projetos**: nome, link, tags, descrição, estúdio, imagens e ordem. Um por projeto.
+- **Projetos**: nome, link, tags, descrição, estúdio, imagens e vídeos (MP4 ou WebM), e ordem. Um por projeto.
 
 Carrega em **Publish** para a alteração ir para o site. Enquanto a Sanity estiver vazia,
 o site mostra o conteúdo de exemplo do Figma (`src/content/fallback.ts`).

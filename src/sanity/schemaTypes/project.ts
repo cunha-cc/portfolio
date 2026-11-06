@@ -47,9 +47,9 @@ export const project = defineType({
     }),
     defineField({
       name: "images",
-      title: "Imagens",
+      title: "Imagens e vídeos",
       description:
-        "Formato 16:9. Com mais de uma imagem aparecem as setas da galeria. Arrasta para mudar a ordem.",
+        "Formato 16:9. Vídeos em MP4 ou WebM, de preferência comprimidos. Com mais de um item aparecem as setas da galeria. Arrasta para mudar a ordem.",
       type: "array",
       of: [
         defineArrayMember({
@@ -64,6 +64,32 @@ export const project = defineType({
               validation: (rule) => rule.required(),
             }),
           ],
+        }),
+        defineArrayMember({
+          type: "file",
+          name: "video",
+          title: "Vídeo",
+          options: { accept: "video/mp4,video/webm" },
+          fields: [
+            defineField({
+              name: "alt",
+              title: "Descrição do vídeo",
+              description: "Para leitores de ecrã e motores de busca.",
+              type: "string",
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "poster",
+              title: "Imagem de capa (opcional)",
+              description: "Aparece enquanto o vídeo carrega.",
+              type: "image",
+              options: { hotspot: true },
+            }),
+          ],
+          preview: {
+            select: { title: "alt", media: "poster" },
+            prepare: ({ title, media }) => ({ title, subtitle: "Vídeo", media }),
+          },
         }),
       ],
       validation: (rule) => rule.required().min(1),
@@ -85,6 +111,12 @@ export const project = defineType({
     },
   ],
   preview: {
-    select: { title: "title", subtitle: "studio", media: "images.0" },
+    select: { title: "title", subtitle: "studio", first: "images.0" },
+    prepare: ({ title, subtitle, first }) => ({
+      title,
+      subtitle,
+      // Só as imagens podem servir de miniatura; um vídeo usa a capa, se tiver.
+      media: first?._type === "video" ? first.poster : first,
+    }),
   },
 });
