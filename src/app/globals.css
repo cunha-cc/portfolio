@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/* A seta ↗ da 42dot Sans está num ficheiro separado do alfabeto latino. */
+@font-face {
+  font-family: "42dot Sans Arrows";
+  src: url("/fonts/42dot-sans-arrows.woff2") format("woff2");
+  font-weight: 300 800;
+  font-display: swap;
+  unicode-range: U+2197;
+}
+
+/* Tokens do Figma (Portfolio/* e Desktop|Mobile/Body/*) */
+@theme {
+  --color-ink: #1c1b1f;
+  --color-muted: #646464;
+  --color-placeholder: #cfcfcf;
+  --color-surface: #fdfdfd;
+  --color-control: rgb(225 225 225 / 0.65);
+
+  --font-sans: var(--font-42dot), "42dot Sans Arrows", ui-sans-serif, system-ui, sans-serif;
+
+  --text-title: 18px;
+  --text-title--line-height: 1.15;
+  --text-title--letter-spacing: -0.18px;
+  --text-body: 16px;
+  --text-body--line-height: 1.2;
+  --text-small: 14px;
+  --text-small--line-height: 1.2;
+  --text-caption: 12px;
+  --text-caption--line-height: 1.2;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-body text-ink font-sans antialiased xl:bg-white;
+  }
+}

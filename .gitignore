@@ -1,0 +1,17 @@
+# dependências e builds
+node_modules
+.next
+out
+.sanity
+dist
+
+# variáveis de ambiente
+.env*
+!.env.example
+
+# sistema e ferramentas
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+.vercel
+.claude/settings.local.json
