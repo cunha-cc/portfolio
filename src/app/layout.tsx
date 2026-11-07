@@ -18,6 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `${profile.name} — Portfolio`,
     description: profile.bio,
+    robots: { index: false, follow: false },
   };
 }
 
