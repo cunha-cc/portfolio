@@ -1,0 +1,5 @@
+# Pede aos motores de busca que não indexem os ficheiros servidos diretamente pela Netlify.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
