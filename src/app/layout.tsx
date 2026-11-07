@@ -26,10 +26,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="en" className={sans.variable}>
-      <head>
-        <style dangerouslySetInnerHTML={{ __html: tokensToCss(tokens) }} />
-      </head>
-      <body>{children}</body>
+      <body>
+        {/* O React move este estilo para o <head>. Um <head> explícito falha com o HTML da Netlify. */}
+        <style href="design-tokens" precedence="default">
+          {tokensToCss(tokens)}
+        </style>
+        {children}
+      </body>
     </html>
   );
 }
